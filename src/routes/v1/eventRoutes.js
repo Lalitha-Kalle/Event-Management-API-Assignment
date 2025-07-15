@@ -1,6 +1,6 @@
 const express = require('express');
 const eventRouter = express.Router();
-const { createEvent, getEventDetails, listUpcomingEvents } = require("../../controllers/eventControllers")
+const { createEvent, getEventDetails, listUpcomingEvents, getEventStats } = require("../../controllers/eventControllers")
 
 // this route is to create an event
 eventRouter.post('/', createEvent);
