@@ -1,8 +1,9 @@
 const express = require('express');
 const eventRouter = express.Router();
+const { createEvent } = require("../../controllers/eventControllers")
 
 // this route is to create an event
-eventRouter.post('/', (req, res ) => {});
+eventRouter.post('/', createEvent);
 
 // this route is to get details of an event + registered users
 eventRouter.get('/:id', (req, res ) => {});
