@@ -38,5 +38,13 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Event',
   });
+
+  Event.associate = models => {
+    Event.belongsToMany(models.User, {
+      through: 'Registrations',
+      foreignKey: 'eventId'
+    });
+  };
+
   return Event;
 };
