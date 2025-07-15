@@ -80,3 +80,34 @@ exports.getEventDetails = async (req, res) => {
 };
 
 
+exports.listUpcomingEvents = async (req, res) => {
+  try {
+    const events = await Event.findAll({
+      where: {
+        datetime: {
+          [Op.gt]: new Date()
+        }
+      },
+      order: [
+        ['datetime', 'ASC'],
+        ['location', 'ASC']
+      ]
+    });
+
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      message: "Upcoming events listed",
+      data: events,
+      error: null
+    });
+  } catch (err) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: "Server Error",
+      data: {},
+      error: err.message
+    });
+  }
+};
+
+

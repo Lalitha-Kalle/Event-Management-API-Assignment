@@ -1,6 +1,6 @@
 const express = require('express');
 const eventRouter = express.Router();
-const { createEvent } = require("../../controllers/eventControllers")
+const { createEvent, getEventDetails, listUpcomingEvents } = require("../../controllers/eventControllers")
 
 // this route is to create an event
 eventRouter.post('/', createEvent);
@@ -9,7 +9,7 @@ eventRouter.post('/', createEvent);
 eventRouter.get('/:id', getEventDetails);
 
 // this route is to list upcoming events with custom sort
-eventRouter.get('/upcoming/list', (req, res ) => {});
+eventRouter.get('/upcoming/list', listUpcomingEvents);
 
 // this route is to get stats for a specific event
 eventRouter.get('/:id/stats', (req, res ) => {});
