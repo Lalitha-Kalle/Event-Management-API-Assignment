@@ -6,7 +6,7 @@ const { createEvent } = require("../../controllers/eventControllers")
 eventRouter.post('/', createEvent);
 
 // this route is to get details of an event + registered users
-eventRouter.get('/:id', (req, res ) => {});
+eventRouter.get('/:id', getEventDetails);
 
 // this route is to list upcoming events with custom sort
 eventRouter.get('/upcoming/list', (req, res ) => {});

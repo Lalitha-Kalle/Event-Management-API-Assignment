@@ -44,3 +44,39 @@ exports.createEvent = async (req, res) => {
 };
 
 
+exports.getEventDetails = async (req, res) => {
+  try {
+    const event = await Event.findByPk(req.params.id, {
+      include: {
+        model: User,
+        attributes: ['id', 'name', 'email'],
+        through: { attributes: [] }
+      }
+    });
+
+    if (!event) {
+      return res.status(StatusCodes.NOT_FOUND).json({
+        success: false,
+        message: "Event not found",
+        data: {},
+        error: "Invalid event ID"
+      });
+    }
+
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      message: "Event details retrieved",
+      data: event,
+      error: null
+    });
+  } catch (err) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: "Server Error",
+      data: {},
+      error: err.message
+    });
+  }
+};
+
+
