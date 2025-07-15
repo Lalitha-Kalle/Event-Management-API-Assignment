@@ -38,7 +38,19 @@ module.exports = {
         defaultValue: Sequelize.fn('now')
       }
     });
+
+    /*
+      this is constraint to prevent duplication registration for an event by user
+    */
+    await queryInterface.addConstraint('Registrations', {
+      fields: ['userId', 'eventId'],
+      type: 'unique',
+      name: 'unique_user_event' /* this is constraint name */
+    });
   },
+
+
+
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Registrations');
   }
