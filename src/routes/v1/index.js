@@ -2,8 +2,10 @@ const express = require('express');
 const router = express.Router();
 
 const eventRoutes = require('./eventRoutes');
+const userRouter = require("./userRoutes")
 
-// Mount /api/v1/events
+
 router.use('/events', eventRoutes);
+router.use('/users', userRouter);
 
-module.exports = router; // ✅ returns a router function
+module.exports = router; 
