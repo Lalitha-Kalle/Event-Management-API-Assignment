@@ -12,8 +12,8 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
-    "dev": "nodemon index"
+    "start": "node src/index",
+    "dev": "nodemon src/index"
   },
   "dependencies": {
     "dotenv": "^17.2.0",
