@@ -111,3 +111,44 @@ exports.listUpcomingEvents = async (req, res) => {
 };
 
 
+exports.getEventStats = async (req, res) => {
+  try {
+    const event = await Event.findByPk(req.params.id, {
+      include: {
+        model: User,
+        through: { attributes: [] }
+      }
+    });
+
+    if (!event) {
+      return res.status(StatusCodes.NOT_FOUND).json({
+        success: false,
+        message: "Event not found",
+        data: {},
+        error: "Invalid event ID"
+      });
+    }
+
+    const totalRegistrations = event.Users.length;
+    const remaining = event.capacity - totalRegistrations;
+    const percentage = ((totalRegistrations / event.capacity) * 100).toFixed(2);
+
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      message: "Event statistics calculated",
+      data: {
+        totalRegistrations,
+        remainingCapacity: remaining,
+        percentageUsed: percentage + "%"
+      },
+      error: null
+    });
+  } catch (err) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: "Server Error",
+      data: {},
+      error: err.message
+    });
+  }
+};

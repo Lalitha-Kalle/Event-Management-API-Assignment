@@ -12,6 +12,6 @@ eventRouter.get('/:id', getEventDetails);
 eventRouter.get('/upcoming/list', listUpcomingEvents);
 
 // this route is to get stats for a specific event
-eventRouter.get('/:id/stats', (req, res ) => {});
+eventRouter.get('/:id/stats', getEventStats);
 
 module.exports = eventRouter;
