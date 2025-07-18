@@ -1,5 +1,6 @@
-const { User } = require('../models');
+const { User, Event } = require('../models');
 const { StatusCodes } = require('http-status-codes');
+const { Op } = require("sequelize")
 
 exports.createUser = async (req, res) => {
   try {
@@ -65,3 +66,37 @@ exports.listUsers = async (req, res) => {
     });
   }
 };
+
+
+//Create an API that accepts a user ID and returns the number of events the user has registered for in the past month.
+
+exports.noofEventsRegistered = async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    const today = new Date();
+    const lastMonth = new Date();
+    lastMonth.setDate(today.getDate() - 30);
+
+    const events = await Event.findAll({
+      include: {
+        model: User,
+        where: { id: userId },
+      },
+      where: {
+        datetime: {
+          [Op.between]: [lastMonth, today]
+        }
+      }
+    });
+
+    return res.status(StatusCodes.OK).json({
+      data: { count: events.length }
+    });
+
+  } catch (error) {
+    return res.status(500).json({
+      err: error
+    });
+  }
+}

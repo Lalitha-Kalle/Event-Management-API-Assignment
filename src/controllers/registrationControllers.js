@@ -39,14 +39,14 @@ exports.registerUser = async (req, res) => {
     }
 
     /* it don't allow registration for past events */
-    if (new Date(event.datetime) < new Date()) {
-      return res.status(StatusCodes.BAD_REQUEST).json({
-        success: false,
-        message: "Event is in the past",
-        data: {},
-        error: "Cannot register for past events"
-      });
-    }
+    // if (new Date(event.datetime) < new Date()) {
+    //   return res.status(StatusCodes.BAD_REQUEST).json({
+    //     success: false,
+    //     message: "Event is in the past",
+    //     data: {},
+    //     error: "Cannot register for past events"
+    //   });
+    // }
 
     /* to avoid duplicate registrations */
     const alreadyRegistered = await event.hasUser(user);
